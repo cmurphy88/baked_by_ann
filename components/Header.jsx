@@ -1,23 +1,45 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Instagram } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="bg-white shadow-sm border-b-2 border-teal-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <header
+      className={`bg-teal-300/30 backdrop-blur-sm shadow-sm sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'py-2' : 'py-4'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Left side - Logo + Text */}
           <Link href="/" className="flex items-center gap-3 group">
             <Image
               src="/BakedByAnnLogo.jpeg"
               alt="Baked by Ann"
-              width={50}
-              height={50}
-              className="cursor-pointer group-hover:opacity-80 transition-opacity"
+              width={isScrolled ? 40 : 50}
+              height={isScrolled ? 40 : 50}
+              className="cursor-pointer group-hover:opacity-80 transition-all duration-300"
               priority
             />
-            <h1 className="text-2xl font-semibold text-gray-800 group-hover:text-teal-400 transition-colors tracking-tight">
+            <h1
+              className={`text-3xl font-bold text-gray-600 group-hover:text-teal-400 transition-all duration-300 overflow-hidden whitespace-nowrap font-[family-name:var(--font-handwritten)] ${
+                isScrolled ? 'w-0 opacity-0' : 'w-auto opacity-100'
+              }`}
+            >
               Baked by Ann
             </h1>
           </Link>
@@ -30,7 +52,13 @@ export default function Header() {
             className="flex items-center gap-2 text-gray-600 hover:text-teal-400 transition-colors"
           >
             <Instagram className="w-5 h-5" />
-            <span className="hidden sm:inline text-sm">@bakedbyann80</span>
+            <span
+              className={`hidden sm:inline text-sm transition-all duration-300 ${
+                isScrolled ? 'w-0 opacity-0 overflow-hidden' : ''
+              }`}
+            >
+              @bakedbyann80
+            </span>
           </a>
         </div>
       </div>

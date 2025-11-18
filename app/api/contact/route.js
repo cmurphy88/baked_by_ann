@@ -41,11 +41,11 @@ export async function POST(request) {
 
     // Parse request body
     const body = await request.json()
-    const { name, email, socialMedia, weddingDate, guestCount, services, additionalDetails } =
+    const { name, email, socialMedia, venue, weddingDate, guestCount, budget, additionalDetails, inspirationImages } =
       body
 
     // Validate required fields
-    if (!name || !email || !weddingDate || !guestCount || !services) {
+    if (!name || !email || !venue || !weddingDate || !guestCount) {
       return NextResponse.json(
         { error: 'Please fill in all required fields' },
         { status: 400 }
@@ -74,9 +74,9 @@ export async function POST(request) {
     const safeName = escapeHtml(name)
     const safeEmail = escapeHtml(email)
     const safeSocialMedia = socialMedia ? escapeHtml(socialMedia) : ''
-    const safeWeddingDate = escapeHtml(weddingDate)
+    const safeVenue = escapeHtml(venue)
     const safeGuestCount = escapeHtml(guestCount.toString())
-    const safeServices = escapeHtml(services)
+    const safeBudget = budget ? escapeHtml(budget) : ''
     const safeAdditionalDetails = additionalDetails
       ? escapeHtml(additionalDetails)
       : ''
@@ -89,11 +89,26 @@ export async function POST(request) {
       day: 'numeric',
     })
 
+    // Process inspiration images for attachments
+    const attachments = []
+    if (inspirationImages && inspirationImages.length > 0) {
+      inspirationImages.forEach((img, index) => {
+        // Extract base64 content (remove data:image/...;base64, prefix)
+        const base64Data = img.data.split(',')[1]
+        if (base64Data) {
+          attachments.push({
+            filename: img.name || `inspiration-${index + 1}.jpg`,
+            content: base64Data,
+          })
+        }
+      })
+    }
+
     // Send email via Resend
-    const { data, error } = await resend.emails.send({
+    const emailOptions = {
       from: `Baked by Ann <${process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'}>`,
       to: process.env.RECIPIENT_EMAIL || 'your-email@example.com',
-      subject: `New Wedding Inquiry from ${safeName} - Baked by Ann`,
+      subject: `New Wedding Enquiry from ${safeName} - Baked by Ann`,
       replyTo: email,
       html: `<!DOCTYPE html>
 <html>
@@ -178,7 +193,7 @@ export async function POST(request) {
 <body>
   <div class="container">
     <div class="header">
-      <h2 style="color: #1F2937;">💍 New Wedding Inquiry</h2>
+      <h2 style="color: #1F2937;">💍 New Wedding Enquiry</h2>
       <p style="margin: 10px 0 0 0; font-size: 16px; color: #1F2937;">Baked by Ann</p>
     </div>
     <div class="content">
@@ -201,6 +216,11 @@ export async function POST(request) {
           : ''
       }
 
+      <div class="field">
+        <div class="label">Venue</div>
+        <div class="value">${safeVenue}</div>
+      </div>
+
       <div class="field highlight">
         <div class="label">Wedding Date</div>
         <div class="value" style="font-size: 20px; font-weight: bold; color: #1F2937;">${formattedDate}</div>
@@ -211,16 +231,29 @@ export async function POST(request) {
         <div class="value">${safeGuestCount} guests</div>
       </div>
 
-      <div class="field">
-        <div class="label">Services Interested In</div>
-        <div class="value">${safeServices.replace(/\n/g, '<br>')}</div>
-      </div>
+      ${
+        safeBudget
+          ? `<div class="field">
+        <div class="label">Budget Estimate</div>
+        <div class="value">${safeBudget}</div>
+      </div>`
+          : ''
+      }
 
       ${
         safeAdditionalDetails
           ? `<div class="field">
         <div class="label">Additional Details</div>
         <div class="value">${safeAdditionalDetails.replace(/\n/g, '<br>')}</div>
+      </div>`
+          : ''
+      }
+
+      ${
+        attachments.length > 0
+          ? `<div class="field">
+        <div class="label">Inspiration Images</div>
+        <div class="value">${attachments.length} image${attachments.length > 1 ? 's' : ''} attached</div>
       </div>`
           : ''
       }
@@ -240,7 +273,14 @@ export async function POST(request) {
   </div>
 </body>
 </html>`,
-    })
+    }
+
+    // Add attachments if present
+    if (attachments.length > 0) {
+      emailOptions.attachments = attachments
+    }
+
+    const { error } = await resend.emails.send(emailOptions)
 
     if (error) {
       console.error('Resend error:', error)

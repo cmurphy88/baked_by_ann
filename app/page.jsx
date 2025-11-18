@@ -4,20 +4,16 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import PhotoGallery from '@/components/PhotoGallery'
 import HeroSection from '@/components/HeroSection'
-import InquiryForm from '@/components/InquiryForm'
+import EnquiryForm from '@/components/EnquiryForm'
 
 export default function Home() {
   const galleryImages = [
-    { id: 1, src: '/images/wedding-1.jpg', alt: 'Wedding cake with flowers' },
-    { id: 2, src: '/images/wedding-2.jpg', alt: 'Elegant tiered wedding cake' },
-    { id: 3, src: '/images/wedding-3.jpg', alt: 'Wedding dessert table' },
-    { id: 4, src: '/images/wedding-4.jpg', alt: 'Custom wedding cookies' },
-    { id: 5, src: '/images/wedding-5.jpg', alt: 'Wedding cupcakes display' },
-    {
-      id: 6,
-      src: '/images/wedding-6.jpg',
-      alt: 'Romantic wedding cake design',
-    },
+    { id: 1, src: '/images/0FDF35C6.png', alt: 'Wedding cake creation' },
+    { id: 2, src: '/images/IMG_1517.png', alt: 'Elegant wedding cake' },
+    { id: 3, src: '/images/IMG_2041.png', alt: 'Beautiful cake design' },
+    { id: 4, src: '/images/IMG_6125.png', alt: 'Custom wedding cake' },
+    { id: 5, src: '/images/IMG_6580.png', alt: 'Wedding cake display' },
+    { id: 6, src: '/images/IMG_7957.png', alt: 'Romantic cake design' },
   ]
 
   return (
@@ -29,9 +25,8 @@ export default function Home() {
         <HeroSection />
         {/* Photo Gallery Section */}
         <PhotoGallery photos={galleryImages} />
-
-        {/* Inquiry Form Section */}
-        <InquiryForm />
+        {/* Enquiry Form Section */}
+        <EnquiryForm />
       </main>
 
       <Footer />
