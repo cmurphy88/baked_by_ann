@@ -1,4 +1,3 @@
-import { Heart } from 'lucide-react'
 import Image from 'next/image'
 
 const HeroSection = () => {
@@ -7,7 +6,7 @@ const HeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/IMG_2041.webp"
+          src="/images/1000017634.webp"
           alt=""
           fill
           className="object-cover opacity-40"
@@ -15,7 +14,7 @@ const HeroSection = () => {
         />
         <div className="absolute inset-0 bg-teal-50/50" />
         {/* Bottom fade to white */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-white" />
       </div>
 
       {/* Content */}

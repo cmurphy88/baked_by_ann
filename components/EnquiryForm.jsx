@@ -1,4 +1,14 @@
-import { Heart, Calendar, Users, Loader2, Check, X, Upload, Image as ImageIcon } from 'lucide-react'
+import {
+  Heart,
+  Calendar,
+  Users,
+  Loader2,
+  Check,
+  X,
+  Upload,
+  Image as ImageIcon,
+  ChevronDown,
+} from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 const EnquiryForm = () => {
@@ -15,8 +25,10 @@ const EnquiryForm = () => {
   const [inspirationImages, setInspirationImages] = useState([])
   const [status, setStatus] = useState('idle') // 'idle' | 'loading' | 'success' | 'error'
   const [errorMessage, setErrorMessage] = useState('')
+  const [isFlavoursOpen, setIsFlavoursOpen] = useState(false)
   const timeoutRef = useRef(null)
   const fileInputRef = useRef(null)
+  const successMessageRef = useRef(null)
 
   useEffect(() => {
     return () => {
@@ -25,6 +37,15 @@ const EnquiryForm = () => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (status === 'success' && successMessageRef.current) {
+      successMessageRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      })
+    }
+  }, [status])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -39,7 +60,7 @@ const EnquiryForm = () => {
     const maxFiles = 3
     const maxSize = 5 * 1024 * 1024 // 5MB
 
-    const validFiles = files.filter(file => {
+    const validFiles = files.filter((file) => {
       if (!file.type.startsWith('image/')) {
         return false
       }
@@ -52,14 +73,17 @@ const EnquiryForm = () => {
     const remainingSlots = maxFiles - inspirationImages.length
     const filesToAdd = validFiles.slice(0, remainingSlots)
 
-    filesToAdd.forEach(file => {
+    filesToAdd.forEach((file) => {
       const reader = new FileReader()
       reader.onload = (e) => {
-        setInspirationImages(prev => [...prev, {
-          file,
-          preview: e.target.result,
-          name: file.name
-        }])
+        setInspirationImages((prev) => [
+          ...prev,
+          {
+            file,
+            preview: e.target.result,
+            name: file.name,
+          },
+        ])
       }
       reader.readAsDataURL(file)
     })
@@ -71,7 +95,7 @@ const EnquiryForm = () => {
   }
 
   const removeImage = (index) => {
-    setInspirationImages(prev => prev.filter((_, i) => i !== index))
+    setInspirationImages((prev) => prev.filter((_, i) => i !== index))
   }
 
   const handleSubmit = async (e) => {
@@ -81,9 +105,9 @@ const EnquiryForm = () => {
 
     try {
       // Prepare images as base64
-      const images = inspirationImages.map(img => ({
+      const images = inspirationImages.map((img) => ({
         data: img.preview,
-        name: img.name
+        name: img.name,
       }))
 
       const response = await fetch('/api/contact', {
@@ -139,9 +163,52 @@ const EnquiryForm = () => {
           </p>
         </div>
 
+        {/* Available Flavours Dropdown */}
+        <div className="mb-6">
+          <button
+            type="button"
+            onClick={() => setIsFlavoursOpen(!isFlavoursOpen)}
+            className="w-full flex items-center justify-between px-4 py-3 bg-teal-50 border border-teal-200 rounded-lg hover:bg-teal-100 transition-colors"
+          >
+            <span className="text-gray-600 font-medium font-sans">
+              Available Flavours
+            </span>
+            <ChevronDown
+              className={`w-5 h-5 text-teal-400 transition-transform duration-300 ${
+                isFlavoursOpen ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
+
+          <div
+            className={`overflow-hidden transition-all duration-300 ${
+              isFlavoursOpen ? 'max-h-96 mt-3' : 'max-h-0'
+            }`}
+          >
+            <div className="bg-white border border-teal-200 rounded-lg p-4 font-sans">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-600">
+                <div>• Jam & Cream</div>
+                <div>• Chocolate</div>
+                <div>• Nutella</div>
+                <div>• Lemon</div>
+                <div>• Red Velvet</div>
+                <div>• Oreo</div>
+                <div>• Strawberry</div>
+                <div>• Salted Caramel</div>
+              </div>
+              <p className="text-gray-500 text-sm mt-4">
+                Just for reference, you don&#39;t need to decide today
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Success Message */}
         {status === 'success' && (
-          <div className="mb-6 bg-teal-50 border border-teal-300 rounded-lg p-4 flex items-start gap-3">
+          <div
+            ref={successMessageRef}
+            className="mb-6 bg-teal-50 border border-teal-300 rounded-lg p-4 flex items-start gap-3"
+          >
             <Check className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-teal-800 font-medium">
@@ -232,7 +299,8 @@ const EnquiryForm = () => {
               htmlFor="socialMedia"
               className="block text-gray-700 font-medium mb-2 font-sans"
             >
-              Instagram or Facebook <span className="text-gray-400 text-sm">(Optional)</span>
+              Instagram or Facebook{' '}
+              <span className="text-gray-400 text-sm">(Optional)</span>
             </label>
             <input
               type="text"
@@ -323,7 +391,8 @@ const EnquiryForm = () => {
               htmlFor="budget"
               className="block text-gray-700 font-medium mb-2 font-sans"
             >
-              Budget Estimate <span className="text-gray-400 text-sm">(Optional)</span>
+              Budget Estimate{' '}
+              <span className="text-gray-400 text-sm">(Optional)</span>
             </label>
             <input
               type="text"
@@ -361,7 +430,8 @@ const EnquiryForm = () => {
           {/* Inspiration Images */}
           <div className="mb-8">
             <label className="block text-gray-700 font-medium mb-2 font-sans">
-              Inspiration Images <span className="text-gray-400 text-sm">(Optional, max 3)</span>
+              Inspiration Images{' '}
+              <span className="text-gray-400 text-sm">(Optional, max 3)</span>
             </label>
             <p className="text-gray-500 text-xs mb-3 font-sans">
               Upload up to 3 images to show us your vision (max 5MB each)
@@ -411,7 +481,9 @@ const EnquiryForm = () => {
                 >
                   <Upload className="w-4 h-4 text-teal-400" />
                   <span className="text-gray-600">
-                    {inspirationImages.length === 0 ? 'Upload Images' : 'Add More'}
+                    {inspirationImages.length === 0
+                      ? 'Upload Images'
+                      : 'Add More'}
                   </span>
                 </label>
               </div>
