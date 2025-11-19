@@ -51,10 +51,10 @@ export default function Header() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-gray-600 hover:text-teal-400 transition-colors"
           >
-            <Instagram className="w-5 h-5" />
+            <Instagram className={`transition-all duration-300 ${isScrolled ? 'w-4 h-4' : 'w-5 h-5'}`} />
             <span
-              className={`hidden sm:inline text-sm transition-all duration-300 ${
-                isScrolled ? 'w-0 opacity-0 overflow-hidden' : ''
+              className={`transition-all duration-300 ${
+                isScrolled ? 'text-xs' : 'text-sm'
               }`}
             >
               @bakedbyann80
