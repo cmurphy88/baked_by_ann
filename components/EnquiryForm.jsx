@@ -386,8 +386,7 @@ const EnquiryForm = () => {
               htmlFor="budget"
               className="block text-gray-700 font-medium mb-2 font-sans"
             >
-              Budget Estimate{' '}
-              <span className="text-gray-400 text-sm">(Optional)</span>
+              Budget Estimate <span className="text-teal-500">*</span>
             </label>
             <input
               type="text"
@@ -395,6 +394,7 @@ const EnquiryForm = () => {
               name="budget"
               value={formData.budget}
               onChange={handleChange}
+              required
               disabled={status === 'loading'}
               className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-300 focus:border-transparent transition-all outline-none disabled:opacity-50 disabled:cursor-not-allowed font-sans"
               placeholder="e.g., £200 - £400"
@@ -408,17 +408,18 @@ const EnquiryForm = () => {
               className="block text-gray-700 font-medium mb-2 font-sans"
             >
               Additional Details or Special Requests{' '}
-              <span className="text-gray-400 text-sm">(Optional)</span>
+              <span className="text-teal-500">*</span>
             </label>
             <textarea
               id="additionalDetails"
               name="additionalDetails"
               value={formData.additionalDetails}
               onChange={handleChange}
+              required
               rows="4"
               disabled={status === 'loading'}
               className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-300 focus:border-transparent transition-all outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed font-sans"
-              placeholder="Tell us about your theme, colors, dietary restrictions, or any special requests..."
+              placeholder="Tell us about your theme, colours, any special requests or how many tiers you'd like..."
             ></textarea>
           </div>
 
