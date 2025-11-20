@@ -6,10 +6,10 @@ import {
   Check,
   X,
   Upload,
-  Image as ImageIcon,
   ChevronDown,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { flavours } from '@/data/data'
 
 const EnquiryForm = () => {
   const [formData, setFormData] = useState({
@@ -182,19 +182,14 @@ const EnquiryForm = () => {
 
           <div
             className={`overflow-hidden transition-all duration-300 ${
-              isFlavoursOpen ? 'max-h-96 mt-3' : 'max-h-0'
+              isFlavoursOpen ? 'max-h-[800px] mt-3' : 'max-h-0'
             }`}
           >
             <div className="bg-white border border-teal-200 rounded-lg p-4 font-sans">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-600">
-                <div>• Jam & Cream</div>
-                <div>• Chocolate</div>
-                <div>• Nutella</div>
-                <div>• Lemon</div>
-                <div>• Red Velvet</div>
-                <div>• Oreo</div>
-                <div>• Strawberry</div>
-                <div>• Salted Caramel</div>
+                {flavours.map((flavour, index) => (
+                  <div key={index}>• {flavour}</div>
+                ))}
               </div>
               <p className="text-gray-500 text-sm mt-4">
                 Just for reference, you don&#39;t need to decide today
