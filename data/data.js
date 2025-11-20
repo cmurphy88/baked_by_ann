@@ -1,0 +1,76 @@
+export const galleryImages = [
+  { id: 1, src: '/images/1000017634.webp', alt: 'Wedding cake design' },
+  { id: 2, src: '/images/0FDF35C6.webp', alt: 'Wedding cake creation' },
+  {
+    id: 3,
+    src: '/images/746A84EB-A58B-416B-A0B3-B363B34FCF1B.webp',
+    alt: 'Custom cake',
+  },
+  { id: 4, src: '/images/IMG_8767.webp', alt: 'Wedding cake creation' },
+  { id: 5, src: '/images/IMG_0277.webp', alt: 'Wedding cake display' },
+  { id: 6, src: '/images/IMG_0877.webp', alt: 'Elegant cake design' },
+  { id: 7, src: '/images/IMG_1517.webp', alt: 'Elegant wedding cake' },
+  { id: 8, src: '/images/IMG_2041.webp', alt: 'Beautiful cake design' },
+  { id: 9, src: '/images/IMG_2171.webp', alt: 'Wedding cake creation' },
+  { id: 10, src: '/images/IMG_5389.webp', alt: 'Custom wedding cake' },
+  { id: 11, src: '/images/IMG_5544.webp', alt: 'Cake decoration' },
+  { id: 12, src: '/images/IMG_6117.webp', alt: 'Wedding cake display' },
+  { id: 13, src: '/images/IMG_6125.webp', alt: 'Custom wedding cake' },
+  { id: 14, src: '/images/IMG_6580.webp', alt: 'Wedding cake display' },
+  { id: 15, src: '/images/IMG_7957.webp', alt: 'Romantic cake design' },
+]
+
+export const faqs = [
+  {
+    question: 'Do you offer cake tastings?',
+    answer:
+      "At the minute I don't. Sometimes couples order cupcakes to help decide on a flavour.",
+  },
+  {
+    question: 'Do you provide flowers and cake toppers?',
+    answer:
+      'Flowers are generally provided by your own florist for continuity, I liaise with the florists and arrange collection for your cake, making the process seamless. All toppers are provided by <a href="https://www.instagram.com/theglitterpotni/" target="_blank" rel="noopener noreferrer" class="text-teal-400 hover:text-teal-500 underline">The Glitterpot NI</a> and can be made to your own specifications.',
+  },
+  {
+    question: 'Can I have different flavours per tier?',
+    answer:
+      'Absolutely, this offers your guests a variety of flavours on your wedding day.',
+  },
+  {
+    question: 'Do you offer delivery and set up?',
+    answer:
+      'Yes, delivery and set up on the day costs can be discussed when ordering, these costs vary depending on the venue.',
+  },
+]
+
+export const reviews = [
+  {
+    id: 1,
+    name: 'Jane',
+    content: 'Amazing cakes and excellent service. Highly recommend!',
+  },
+  {
+    id: 2,
+    name: 'Sarah',
+    content: 'We loved our cake, looked lovely in the photos.',
+  },
+  {
+    id: 3,
+    name: 'Emily',
+    content: 'Delicious cakes that everyone loved. Thank you, Ann!',
+  },
+]
+
+export const flavours = [
+  'Jam & Cream',
+  'Raspberry & White Chocolate',
+  'Chocolate Ganache',
+  'Chocolate Cookies & Cream',
+  'Chocolate Caramel',
+  'Chocolate Nutella',
+  'Chocolate Kinder Bueno',
+  'Red Velvet & White Chocolate',
+  'Biscoff',
+  'Lemon',
+  'Biscuit Cake',
+]

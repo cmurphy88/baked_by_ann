@@ -45,7 +45,7 @@ export async function POST(request) {
       body
 
     // Validate required fields
-    if (!name || !email || !venue || !weddingDate || !guestCount) {
+    if (!name || !email || !venue || !weddingDate || !guestCount || !budget || !additionalDetails) {
       return NextResponse.json(
         { error: 'Please fill in all required fields' },
         { status: 400 }

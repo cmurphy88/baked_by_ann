@@ -6,10 +6,10 @@ import {
   Check,
   X,
   Upload,
-  Image as ImageIcon,
   ChevronDown,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { flavours } from '@/data/data'
 
 const EnquiryForm = () => {
   const [formData, setFormData] = useState({
@@ -182,19 +182,14 @@ const EnquiryForm = () => {
 
           <div
             className={`overflow-hidden transition-all duration-300 ${
-              isFlavoursOpen ? 'max-h-96 mt-3' : 'max-h-0'
+              isFlavoursOpen ? 'max-h-[800px] mt-3' : 'max-h-0'
             }`}
           >
             <div className="bg-white border border-teal-200 rounded-lg p-4 font-sans">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-600">
-                <div>• Jam & Cream</div>
-                <div>• Chocolate</div>
-                <div>• Nutella</div>
-                <div>• Lemon</div>
-                <div>• Red Velvet</div>
-                <div>• Oreo</div>
-                <div>• Strawberry</div>
-                <div>• Salted Caramel</div>
+                {flavours.map((flavour, index) => (
+                  <div key={index}>• {flavour}</div>
+                ))}
               </div>
               <p className="text-gray-500 text-sm mt-4">
                 Just for reference, you don&#39;t need to decide today
@@ -391,8 +386,7 @@ const EnquiryForm = () => {
               htmlFor="budget"
               className="block text-gray-700 font-medium mb-2 font-sans"
             >
-              Budget Estimate{' '}
-              <span className="text-gray-400 text-sm">(Optional)</span>
+              Budget Estimate <span className="text-teal-500">*</span>
             </label>
             <input
               type="text"
@@ -400,6 +394,7 @@ const EnquiryForm = () => {
               name="budget"
               value={formData.budget}
               onChange={handleChange}
+              required
               disabled={status === 'loading'}
               className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-300 focus:border-transparent transition-all outline-none disabled:opacity-50 disabled:cursor-not-allowed font-sans"
               placeholder="e.g., £200 - £400"
@@ -413,17 +408,18 @@ const EnquiryForm = () => {
               className="block text-gray-700 font-medium mb-2 font-sans"
             >
               Additional Details or Special Requests{' '}
-              <span className="text-gray-400 text-sm">(Optional)</span>
+              <span className="text-teal-500">*</span>
             </label>
             <textarea
               id="additionalDetails"
               name="additionalDetails"
               value={formData.additionalDetails}
               onChange={handleChange}
+              required
               rows="4"
               disabled={status === 'loading'}
               className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-300 focus:border-transparent transition-all outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed font-sans"
-              placeholder="Tell us about your theme, colors, dietary restrictions, or any special requests..."
+              placeholder="Tell us about your theme, colours, any special requests or how many tiers you'd like..."
             ></textarea>
           </div>
 

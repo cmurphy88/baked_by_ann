@@ -26,7 +26,7 @@ const ReviewCards = ({ reviews }) => {
   return (
     <section className="relative py-8 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-white to-teal-50">
       {/* Bottom fade to white */}
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-white pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative">
         <div className="text-center mb-8">
