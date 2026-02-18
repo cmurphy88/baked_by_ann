@@ -74,3 +74,66 @@ export const flavours = [
   'Lemon',
   'Biscuit Cake',
 ]
+
+export const workshopTypes = [
+  {
+    id: 1,
+    icon: 'Cake',
+    title: 'Cupcake & Cake Decorating',
+    tagline: 'A hands-on creative experience for all skill levels',
+    description:
+      'A relaxed, fun session walking you through piping, fondant, and finishing touches. No experience needed — just come ready to enjoy yourself.',
+    highlights: [
+      'All materials and ingredients included',
+      'Step-by-step guidance',
+      'Take home everything you make',
+      'Perfect for complete beginners',
+    ],
+    suitable: 'Individuals, couples, friends',
+  },
+  {
+    id: 2,
+    icon: 'Heart',
+    title: 'Baby Shower',
+    tagline: 'A sweet celebration for mum-to-be',
+    description:
+      'A fun, themed decorating session that doubles as your party activity. Guests create their own baby-themed cupcakes and leave with a gorgeous little treat box.',
+    highlights: [
+      'Cute baby-themed decorations',
+      'Personalised for the mum-to-be',
+      'Keepsake treat boxes included',
+      'Groups of 6–20 guests',
+    ],
+    suitable: 'Baby shower parties',
+  },
+  {
+    id: 3,
+    icon: 'Sparkles',
+    title: 'Hen Party',
+    tagline: 'The sweetest start to happily ever after',
+    description:
+      'Cake, laughs, and bridal-themed decorating — the perfect hen party activity. Everyone leaves with a beautiful box of their own creations, and the bride gets a little extra surprise.',
+    highlights: [
+      'Bridal-themed decorating kits',
+      'Drinks welcome (BYO)',
+      'Special surprise for the bride-to-be',
+      'Groups of 6–20 guests',
+    ],
+    suitable: 'Hen parties and bridal celebrations',
+  },
+  {
+    id: 4,
+    icon: 'Users',
+    title: 'Team Building',
+    tagline: 'Bring your team together over baking',
+    description:
+      'A hands-on creative session that gets your team talking and laughing together. Collaborate or compete to decorate the best cake — prizes included for the most creative design.',
+    highlights: [
+      'Flexible group sizes',
+      'Optional friendly competition with prizes',
+      'All equipment and ingredients provided',
+      'Great for any team or department',
+    ],
+    suitable: 'Corporate groups, offices, organisations',
+  },
+]
