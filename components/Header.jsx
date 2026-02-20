@@ -2,26 +2,52 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Instagram } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { Instagram, Menu, X } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const headerRef = useRef(null)
   const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close on scroll
+  useEffect(() => {
+    if (!isMenuOpen) return
+    const handleScroll = () => setIsMenuOpen(false)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isMenuOpen])
+
+  // Close on tap/click outside the header
+  useEffect(() => {
+    if (!isMenuOpen) return
+    const handleOutside = (e) => {
+      if (headerRef.current && !headerRef.current.contains(e.target)) {
+        setIsMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutside)
+    document.addEventListener('touchstart', handleOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleOutside)
+      document.removeEventListener('touchstart', handleOutside)
+    }
+  }, [isMenuOpen])
+
   return (
     <header
-      className={`bg-teal-300/30 backdrop-blur-sm shadow-sm sticky top-0 z-50 transition-all duration-300 ${
+      ref={headerRef}
+      className={`relative bg-teal-300/30 backdrop-blur-sm shadow-sm sticky top-0 z-50 transition-all duration-300 ${
         isScrolled ? 'py-2' : 'py-4'
       }`}
     >
@@ -46,43 +72,76 @@ export default function Header() {
             </h1>
           </Link>
 
-          {/* Center - Nav Links (hidden while title is visible to avoid overlap) */}
-          <nav className={`absolute left-1/2 -translate-x-1/2 flex items-center gap-4 sm:gap-6 transition-all duration-300 ${isScrolled ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-            <Link
-              href="/"
-              className={`transition-colors font-sans ${isScrolled ? 'text-xs' : 'text-sm'} ${
-                pathname === '/' ? 'text-teal-500 font-semibold' : 'text-gray-600 hover:text-teal-400'
-              }`}
+          {/* Right side - Instagram + Burger */}
+          <div className="flex items-center gap-3 ml-auto">
+            <a
+              href="https://instagram.com/bakedbyann80"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-600 hover:text-teal-400 transition-colors"
             >
-              Home
-            </Link>
-            <Link
-              href="/workshops"
-              className={`transition-colors font-sans ${isScrolled ? 'text-xs' : 'text-sm'} ${
-                pathname === '/workshops' ? 'text-teal-500 font-semibold' : 'text-gray-600 hover:text-teal-400'
-              }`}
-            >
-              Workshops
-            </Link>
-          </nav>
+              <Instagram
+                className={`transition-all duration-300 ${
+                  isScrolled ? 'w-4 h-4' : 'w-5 h-5'
+                }`}
+              />
+              <span
+                className={`transition-all duration-300 ${
+                  isScrolled ? 'text-xs' : 'text-sm'
+                }`}
+              >
+                @bakedbyann80
+              </span>
+            </a>
 
-          {/* Right side - Instagram Link */}
-          <a
-            href="https://instagram.com/bakedbyann80"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gray-600 hover:text-teal-400 transition-colors ml-auto"
-          >
-            <Instagram className={`transition-all duration-300 ${isScrolled ? 'w-4 h-4' : 'w-5 h-5'}`} />
-            <span
-              className={`transition-all duration-300 ${
-                isScrolled ? 'text-xs' : 'text-sm'
-              }`}
+            {/* Burger button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-600 hover:text-teal-400 transition-colors"
+              aria-label="Toggle menu"
             >
-              @bakedbyann80
-            </span>
-          </a>
+              {isMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
+      </div>
+
+      {/* Nav dropdown */}
+      <div
+        className={`absolute top-full left-0 right-0 bg-teal-300/30 backdrop-blur-sm px-4 py-3 border-t border-teal-200/40 shadow-sm transition-opacity duration-300 ${
+          isMenuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <nav className="flex flex-col">
+          <Link
+            href="/"
+            onClick={() => setIsMenuOpen(false)}
+            className={`py-2 text-lg font-[family-name:var(--font-handwritten)] transition-colors ${
+              pathname === '/'
+                ? 'text-teal-500'
+                : 'text-gray-600 hover:text-teal-400'
+            }`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/workshops"
+            onClick={() => setIsMenuOpen(false)}
+            className={`py-2 text-lg font-[family-name:var(--font-handwritten)] transition-colors ${
+              pathname === '/workshops'
+                ? 'text-teal-500'
+                : 'text-gray-600 hover:text-teal-400'
+            }`}
+          >
+            Workshops
+          </Link>
+        </nav>
       </div>
     </header>
   )

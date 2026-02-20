@@ -18,20 +18,23 @@ export default function WorkshopsPage() {
       <Header />
       <main className="grow">
         {/* Hero Section */}
-        <section className="relative h-[50vh] min-h-[320px] flex items-center justify-center overflow-hidden">
-          <Image
-            src="/images/IMG_5544.webp"
-            alt="Cake decoration workshop"
-            fill
-            className="object-cover opacity-40"
-            priority
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-teal-200/60 via-teal-100/40 to-white/80" />
-          <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-4">
+        <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src="/images/IMG_5544.webp"
+              alt="Cake decoration workshop"
+              fill
+              className="object-cover opacity-40"
+              priority
+            />
+            <div className="absolute inset-0 bg-teal-50/50" />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-white" />
+          </div>
+          <div className="relative max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-600 mb-4">
               Workshops
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Hands-on cake decorating experience. Perfect for celebrations,
               team days, and anyone who loves a little creativity.
             </p>
@@ -99,6 +102,17 @@ export default function WorkshopsPage() {
             </div>
           </div>
         </section>
+
+        {/* Venue Callout */}
+        <div className="bg-teal-50 border-y border-teal-100 py-10 px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xl md:text-2xl font-bold text-gray-700">
+            You provide the venue — we provide the rest
+            <span className="text-teal-400 align-super text-sm font-normal ml-0.5">*</span>
+          </p>
+          <p className="text-sm text-gray-500 font-sans mt-3">
+            * We can check suitability of your venue before you book.
+          </p>
+        </div>
 
         {/* How It Works */}
         <section className="bg-linear-to-b from-white to-teal-50 py-16 px-4 sm:px-6 lg:px-8">
