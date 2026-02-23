@@ -35,8 +35,8 @@ export default function WorkshopsPage() {
               Workshops
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Hands-on cake decorating experience. Perfect for celebrations,
-              team days, and anyone who loves a little creativity.
+              Hands-on decorating experience. Perfect for celebrations, team
+              days, and anyone who loves a little creativity.
             </p>
           </div>
         </section>
@@ -107,7 +107,9 @@ export default function WorkshopsPage() {
         <div className="bg-teal-50 border-y border-teal-100 py-10 px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xl md:text-2xl font-bold text-gray-700">
             You provide the venue — we provide the rest
-            <span className="text-teal-400 align-super text-sm font-normal ml-0.5">*</span>
+            <span className="text-teal-400 align-super text-sm font-normal ml-0.5">
+              *
+            </span>
           </p>
           <p className="text-sm text-gray-500 font-sans mt-3">
             * We can check suitability of your venue before you book.
