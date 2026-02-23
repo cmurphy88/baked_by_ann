@@ -9,6 +9,9 @@ const dancingScript = Dancing_Script({
 export const metadata = {
   title: 'Baked by Ann',
   description: 'Created with Next.js',
+  icons: {
+    icon: '/BakedByAnnLogo.jpeg',
+  },
 }
 
 export default function RootLayout({ children }) {
