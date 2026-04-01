@@ -1,5 +1,6 @@
 import './globals.css'
 import { Dancing_Script } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 
 const dancingScript = Dancing_Script({
   subsets: ['latin'],
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={dancingScript.variable}>
       <body className="min-h-screen bg-gray-50 text-gray-600 font-[family-name:var(--font-handwritten)]">
         {children}
+        <Analytics />
       </body>
     </html>
   )
